@@ -17,9 +17,7 @@ class RedirectIfAuthenticated
      * @param  string|null  ...$guards
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-
-
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next, ...$guards)
     {
         if (auth('web')->check()) {
             return redirect(RouteServiceProvider::ADMIN);
