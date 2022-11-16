@@ -9,6 +9,9 @@ use App\Http\Requests\DriverLoginRequest;
 use App\Models\Driver;
 use Illuminate\Support\Facades\Hash;
 use App\Models\ResetCodePassword;
+use App\Mail\SendCodedriver;
+use Illuminate\Support\Facades\Mail;
+use App\Models\ResePasswordDriver;
 
 class DriverAuthController extends Controller
 {
@@ -120,12 +123,12 @@ class DriverAuthController extends Controller
     public function code(Request $request)
     {
         $request->validate([
-            'code' => 'required|string|exists:reset_code_passwords',
+            'code' => 'required|string|exists:rese_password_drivers',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
         // find the code
-        $passwordReset = ResetCodePassword::firstWhere('code', $request->code);
+        $passwordReset = ResePasswordDriver::firstWhere('code', $request->code);
 
         // check if it does not expired: the time is one hour
         if ($passwordReset->created_at > now()->addHour()) {
@@ -152,12 +155,12 @@ class DriverAuthController extends Controller
         ]);
 
         // Delete all old code that user send before.
-        ResetCodePassword::where('email', $request->email)->delete();
+        ResePasswordDriver::where('email', $request->email)->delete();
         $data['code'] = mt_rand(100000, 999999);
-        $codeData = ResetCodePassword::create($data);
+        $codeData = ResePasswordDriver::create($data);
 
         // Send email to user
-        // Mail::to($request->email)->send(new SendCodeResetPassword($codeData->code));
+        Mail::to($request->email)->send(new SendCodedriver($codeData->code));
 
         return response(['message' => trans('passwords.sent')], 201);
     }

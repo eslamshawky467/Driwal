@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\ClientController;
 use App\Http\Controllers\Api\Auth\CompanyAuthController;
+use App\Http\Controllers\Api\Company\PackageController;
+use App\Http\Controllers\Api\Company\RequestController;
 
 
 /*
@@ -34,4 +36,14 @@ Route::prefix('company')->controller(CompanyAuthController::class)->group(functi
 
     Route::post('password/email',  [CompanyAuthController::class,'forget']);
     Route::post('password/code/check', [CompanyAuthController::class,'code']);
+
+    ///////////////////packages////////////
+    Route::get('packages', [PackageController::class,'allPackages']);
+    //////////////////////////////////////
+
+
+    /////////////////request////////////////
+    Route::post('create/request', [RequestController::class,'createRequest']);packageStatus
+    // Route::get('create/request', [RequestController::class,'createRequest']);
+
 });
