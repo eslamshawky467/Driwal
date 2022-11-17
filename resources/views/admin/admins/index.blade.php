@@ -1,8 +1,5 @@
 @extends('layouts.admin.app')
-
-@section('custom-css')
-    @livewireStyles
-@endsection
+@livewireStyles
 
 @section('content')
 
@@ -37,7 +34,7 @@
                 <div class="row mb-2">
                     <div class="col-md-12">
                         <a href="{{ route('admins.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i>{{ trans('admin.create') }}</a>
-                        <form method="post" action="" style="display: inline-block;">
+                        <form method="post" action="{{route('admin.bulk_delete','test')}}" style="display: inline-block;">
                             @csrf
                             @method('delete')
                             <input type="hidden" name="record_ids" id="record-ids">
@@ -45,47 +42,64 @@
                         </form><!-- end of form -->
                 </div><!-- end of row -->
 
-                <!-- table admins -->
+                <div class="row">
+                    <div class="container">
+                        @livewire('search-live-admin')
+                    </div>
 
-                @livewire('search-live-admin')
 
-                <!-- End table admins -->
 
-            </div><!-- end of tile -->
-        </div><!-- end of col -->
-
-    </div><!-- end of row -->
         <script type="text/javascript">
-
+            $('#search').on('keyup',function(){
+                $value=$(this).val();
+                if($value)
+                {
+                    $('.alldata').hide();
+                    $('.searchdata').show();
+                }
+                else{
+                    $('.alldata').show();
+                    $('.searchdata').hide();
+                }
+                $.ajax({
+                    type:'get',
+                    url:'{{ URL::to('search/admin')}}',
+                    data:{'search':$value},
+                    success:function(data){
+                        console.log(data);
+                        $('#Content').html(data);
+                    }
+                });
+            })
         </script>
 @endsection
 @push('scripts')
-    <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    </script>
-    <script>
-        $(document).on('change', '.checkbox', function () {
-            getSelectedRecords();
-        });
-        // used to select all records
-        $(document).on('change', '#checkboxall', function () {
-            $('.checkbox').prop('checked', this.checked);
-            getSelectedRecords();
-        });
-        function getSelectedRecords() {
-            var recordIds = [];
-            $.each($(".checkbox:checked"), function () {
-                recordIds.push($(this).val());
-            });
-            $('#record-ids').val(JSON.stringify(recordIds));
-            recordIds.length > 0
-                ? $('#bulk-delete').attr('disabled', false)
-                : $('#bulk-delete').attr('disabled', true)
-        }
-    </script>
-    @livewireScripts
+            <script>
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+            </script>
+            <script>
+                $(document).on('change', '.checkbox', function () {
+                    getSelectedRecords();
+                });
+                // used to select all records
+                $(document).on('change', '#checkboxall', function () {
+                    $('.checkbox').prop('checked', this.checked);
+                    getSelectedRecords();
+                });
+                function getSelectedRecords() {
+                    var recordIds = [];
+                    $.each($(".checkbox:checked"), function () {
+                        recordIds.push($(this).val());
+                    });
+                    $('#record-ids').val(JSON.stringify(recordIds));
+                    recordIds.length > 0
+                        ? $('#bulk-delete').attr('disabled', false)
+                        : $('#bulk-delete').attr('disabled', true)
+                }
+            </script>
 @endpush
+@livewireScripts

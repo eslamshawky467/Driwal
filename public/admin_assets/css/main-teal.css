@@ -15150,7 +15150,7 @@ be a descendant of the grid when it is being dragged.
 .app-notification__message {
     line-height: 1.2;
 }
-
+/********** sidebar ********/
 .app-sidebar {
     position: fixed;
     top: 0;
@@ -15229,12 +15229,12 @@ be a descendant of the grid when it is being dragged.
     margin-bottom: 0;
 }
 
-.app-menu {
+.app-sidebar .app-menu {
     margin-bottom: 0;
     padding-bottom: 40px;
 }
 
-.app-menu__item {
+.app-sidebar .app-menu .app-menu_item {
     position: relative;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -15253,7 +15253,9 @@ be a descendant of the grid when it is being dragged.
     background-color 0.3s ease;
     color: #fff;
 }
-
+.app-sidebar .app-menu .app-menu_label {
+    padding: 15px;
+}
 .app-menu__item.active, .app-menu__item:hover, .app-menu__item:focus {
     background: #0d1214;
     border-left-color: #009688;

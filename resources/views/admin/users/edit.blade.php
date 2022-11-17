@@ -8,7 +8,7 @@
 
     <ul class="breadcrumb mt-2">
         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{trans('admin.home')}}</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('users.index') }}">{{trans('admin.users')}}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('clints.index') }}">{{trans('admin.users')}}</a></li>
         <li class="breadcrumb-item">{{trans('admin.edituser')}}</li>
     </ul>
 
@@ -25,7 +25,7 @@
         <div class="col-md-12">
 
             <div class="tile shadow">
-                <form action="{{ route('users.update', 'test') }}" method="post"enctype="multipart/form-data">
+                <form action="{{ route('clints.update', 'test') }}" method="post"enctype="multipart/form-data">
                     {{ method_field('patch') }}
                     @csrf
                     {{--name--}}
@@ -56,24 +56,10 @@
 
 
                     {{--password--}}
-                    <div class="form-group">
-                        <label>{{trans('admin.password')}}<span class="text-danger">*</span></label>
-                        <input id="pass" type="password" name="password" rows="10" cols="30" class="form-control">
-                        <br>
-                        <input type="checkbox"  onclick="myFunction()"
-                               id="exampleCheck1"><span>{{trans('admin.show')}}</span>
-                    </div>
+                    <input type="hidden" name="password" value="password">
 
                     {{--password_confirmation--}}
-                    <div class="form-group">
-                        <label>{{trans('admin.confirm')}} <span class="text-danger">*</span></label>
-                        <input id="confirm" type="password" name="password_confirmation" rows="10" cols="30" class="form-control"  >
-                        <br>
-                        <input type="checkbox"  onclick="myFunction2()"
-                               id="exampleCheck1"><span>{{trans('admin.show')}}</span>
-                    </div>
-
-                    <input  type="hidden" name="password_confirmation" class="form-control" value="password" required >
+                    <input  type="hidden" name="password_confirmation" class="form-control" value="password_confirmation" required >
 
                     @if (app()->getLocale() == 'en')
                         <div class="form-group">
@@ -81,7 +67,7 @@
                                 :</label>
                             <select  class="form-select" aria-label="Default select example" name="country_id"
                                      id="exampleFormControlTextarea1" placeholder="." style="border: 1px solid #e3e3e3;padding: 1rem;border-radius: 1px;font-size: 15px;" required>
-                                <option type="hidden" value="{{$users->country_id}}">{{$users->Country->name_en}}</option>
+                                <option type="hidden" value="{{$users->country_id}}">{{$users->nationality->name_en}}</option>
                                 @foreach ($countries as $country )
                                     <option value="{{$country->id}}">{{ $country->name_en }}</option>
                                 @endforeach
@@ -92,9 +78,9 @@
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1"> {{trans('admin.country_id')}}
                                 :</label>
-                            <select  class="form-select" aria-label="Default select example" name="country_id"
-                                     id="exampleFormControlTextarea1" placeholder="." style="border: 1px solid #e3e3e3;padding: 1rem;border-radius: 1px;font-size: 15px;" required>
-                                <option type="hidden" value="{{$users->country_id}}">{{$users->Country->name_ar}}</option>
+                            <select  class="form-select" aria-label="Default select example" name="nationality_id"
+                                     id="exampleFormControlTextarea1" placeholder="." style="border: 1px solid #e3e3e3;padding: 1rem;border-radius: 1px;font-size: 15px;">
+                                <option type="hidden" value="{{$users->nationality_id}}">{{$users->nationality->name_ar}}</option>
                                 @foreach ($countries as $country )
                                     <option value="{{$country->id}}">{{ $country->name_ar }}</option>
                                 @endforeach
@@ -105,7 +91,7 @@
                         <label for="exampleFormControlTextarea1"> Status
                             :</label>
                         <select  class="form-select" aria-label="Default select example" name="status"
-                                 id="exampleFormControlTextarea1" placeholder="." style="border: 1px solid #e3e3e3;padding: 1rem;border-radius: 1px;font-size: 15px;" required>
+                                 id="exampleFormControlTextarea1" placeholder="." style="border: 1px solid #e3e3e3;padding: 1rem;border-radius: 1px;font-size: 15px;">
                             <option type="hidden" value="{{$users->status}}">{{$users->status}}</option>
                             <option value="active">active</option>
                             <option value="inactive">inactive</option>

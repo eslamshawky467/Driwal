@@ -6,11 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 
-class Client extends Model
+class Campany extends Model
 {
     protected $guarded = [];
     use Sortable;
-    public function nationality(){
-        return $this->belongsTo(Nationlity::class, 'nationality_id');
-    }
+    public $table = 'companies';
+    use HasFactory;
 }

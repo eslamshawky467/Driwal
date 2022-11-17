@@ -1,9 +1,10 @@
 @extends('layouts.admin.app')
+@livewireStyles
 
 @section('content')
 
     <div>
-        <h2>{{trans('admin.users')}}</h2>
+        <h2>{{ trans('admin.Companies') }}</h2>
     </div>
     @if(session()->has('Add'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -13,6 +14,7 @@
     @if(session()->has('delete'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>{{ session()->get('delete') }}</strong>
+
         </div>
     @endif
     @if(session()->has('edit'))
@@ -21,12 +23,31 @@
         </div>
     @endif
     <ul class="breadcrumb mt-2">
-        <li class="breadcrumb-item"><a href="{{route('dashboard')}}">{{trans('admin.home')}}</a></li>
-        <li class="breadcrumb-item">{{trans('admin.users')}}</li>
+        <li class="breadcrumb-item"><a href="{{route('dashboard')}}">{{ trans('admin.home') }}</a></li>
+        <li class="breadcrumb-item">{{ trans('admin.Companies') }}</li>
     </ul>
 
-        @livewire('search-clint')
+    <div class="row">
 
+        <div class="col-md-12">
+            <div class="tile shadow">
+                <div class="row mb-2">
+                    <div class="col-md-12">
+                        <a href="{{ route('Companies.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i>{{ trans('admin.create') }}</a>
+                        <form method="post" action="{{route('Companies.delete_All')}}" style="display: inline-block;">
+                            @csrf
+                            <input type="hidden" name="record_ids" id="record-ids">
+                            <button type="submit" class="btn btn-danger" id="bulk-delete" disabled="true"><i class="fa fa-trash"></i> {{ trans('admin.delete') }}</button>
+                        </form><!-- end of form -->
+                </div><!-- end of row -->
+                <div class="col-md-12">
+                    <div class="container">
+                        @livewire('companies')
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
         <script type="text/javascript">
             $('#search').on('keyup',function(){
                 $value=$(this).val();
@@ -41,7 +62,7 @@
                 }
                 $.ajax({
                     type:'get',
-                    url:'{{ URL::to('search/user')}}',
+                    url:'{{ URL::to('search/admin')}}',
                     data:{'search':$value},
                     success:function(data){
                         console.log(data);
@@ -50,8 +71,8 @@
                 });
             })
         </script>
-        @endsection
-        @push('scripts')
+@endsection
+@push('scripts')
             <script>
                 $.ajaxSetup({
                     headers: {
@@ -79,5 +100,5 @@
                         : $('#bulk-delete').attr('disabled', true)
                 }
             </script>
-    @livewireScripts
 @endpush
+@livewireScripts

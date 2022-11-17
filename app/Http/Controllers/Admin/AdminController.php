@@ -65,4 +65,20 @@ class AdminController extends Controller
         $admin->delete();
         return back();
     }   
+    public function bulk_Delete()
+    {
+        foreach (json_decode(request()->record_ids) as $recordId) {
+
+            $admins = User::FindOrFail($recordId);
+            $this->delete($admins);
+        }
+        session()->flash('delete',trans('admin.deletemsg'));
+        return redirect()->back();
+    }
+
+    private function delete(User $user)
+    {
+        $user->delete();
+
+    }
 }

@@ -1,12 +1,14 @@
 <?php 
 
 return [
+    'Vali'     => 'لوحة تحكم الأدمن',
     'Admins'   => 'قائمة جميع الادمن',
     'home'   => 'الرئيسية',
     'index'  => 'إدارة الأدمن',
     'search' => 'بحث',
     'create' => 'إضافة',
     'edit'   => 'تعديل',
+    'deletemsg' => 'تم الحذف بنجاح',
     'editAdmin'   => 'تعديل المستخدم',
     'delete' => 'حذف',
     'Profile' => 'ملفك الشخصي',
@@ -18,4 +20,20 @@ return [
     'show'    => 'إظهار',
     'confirm'    => 'تأكيد كلمة المرور',
     'submit'     => 'حفظ البيانات',
+    'phone_number' => 'رقم الهاتف',
+    'identity_card' => 'رقم البطاقة',
+    'country_id' => 'الدولة',
+    'users' => 'المستخدمين',
+    'createuser' => 'إضافة',
+    'userscreate' => 'إضافة مستخدم',
+    'overview'    => 'الرئيسية',
+    'Users'        => 'المستخدمين',
+    'Companies'        => 'الشركات',
+    'CompaniesCreate'  => 'إضافة شركة',
+    'status'            => 'الحالة',
+    'editCompanies'            => 'تعديل الشركة',
+    'driver'            => 'السائقين',
+    'createdriver'      => 'إضافة سائقين',
+    'editdriver'      => 'تعديل السائق',
+    'nation'            => 'الجنسية'
 ];

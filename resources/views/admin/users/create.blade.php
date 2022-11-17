@@ -3,12 +3,12 @@
 @section('content')
 
     <div>
-        <h2>@lang('admin.admin')</h2>
+        <h2>@lang('admin.userscreate')</h2>
     </div>
 
     <ul class="breadcrumb mt-2">
         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{trans('admin.home')}}</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('users.index') }}">{{trans('admin.users')}}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('clints.index') }}">{{trans('admin.users')}}</a></li>
         <li class="breadcrumb-item">{{trans('admin.createuser')}}</li>
     </ul>
     <div class="row">
@@ -17,10 +17,13 @@
 
             <div class="tile shadow">
 
-                <form method="post" action="{{ route('users.store') }}">
+                <form method="post" action="{{ route('clints.store') }}">
                     @csrf
                     @method('post')
                     @include('admin.partials._errors')
+                    {{--password--}}
+                    <input type="hidden" name="password" value="password">
+                    
                     {{--name--}}
                     <div class="form-group">
                         <label>{{trans('admin.name')}} <span class="text-danger">*</span></label>
