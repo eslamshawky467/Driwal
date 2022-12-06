@@ -21,8 +21,6 @@ class CreateCompaniesTable extends Migration
             $table->text('phonenumber');
             $table->integer('id_number');
             $table->string('status');
-            $table->foreignId('nationality_id')->references('id')->on('nationlities')->onDelete('cascade');
-
             $table->timestamps();
         });
     }
