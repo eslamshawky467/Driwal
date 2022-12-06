@@ -20,9 +20,8 @@ class CreateCompaniesTable extends Migration
             $table->string('password');
             $table->text('phonenumber');
             $table->integer('id_number');
+            $table->foreignId('package_id')->references('id')->on('packges')->onDelete('cascade');
             $table->string('status');
-            $table->foreignId('nationality_id')->references('id')->on('nationlities')->onDelete('cascade');
-
             $table->timestamps();
         });
     }

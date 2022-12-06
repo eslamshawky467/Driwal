@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Traits;
 use App\Providers\RouteServiceProvider;
 
@@ -13,8 +12,11 @@ trait AuthTrait
         elseif ($request->type == 'admin'){
             $guardName = 'web';
         }
+        elseif ($request->type == 'driver'){
+            $guardName = 'driver';
+        }
         else{
-        return dd("error");
+            return dd("error");
         }
         return $guardName;
     }
@@ -24,9 +26,14 @@ trait AuthTrait
         if ($request->type == 'client') {
             return redirect()->intended(RouteServiceProvider::HOME);
         }
+        if ($request->type == 'driver') {
+            return redirect()->intended(RouteServiceProvider::Driver);
+        }
         else {
-            // return redirect()->intended(RouteServiceProvider::ADMIN);
+            return redirect()->intended(RouteServiceProvider::ADMIN);
         }
     }
 
 }
+
+?>
