@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Traits;
 use App\Providers\RouteServiceProvider;
 
@@ -14,7 +13,7 @@ trait AuthTrait
             $guardName = 'web';
         }
         else{
-        return dd("error");
+            return dd("error");
         }
         return $guardName;
     }
@@ -25,8 +24,10 @@ trait AuthTrait
             return redirect()->intended(RouteServiceProvider::HOME);
         }
         else {
-            // return redirect()->intended(RouteServiceProvider::ADMIN);
+            return redirect()->intended(RouteServiceProvider::ADMIN);
         }
     }
 
 }
+
+?>

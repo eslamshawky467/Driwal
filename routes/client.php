@@ -2,7 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\MainClientController;
 use App\Http\Controllers\Api\Auth\ClientController;
+use App\Http\Controllers\Api\Auth\AccountController;
 
 
 /*
@@ -21,7 +23,7 @@ use App\Http\Controllers\Api\Auth\ClientController;
 // });
 
 
-Route::prefix('client')->controller(ClientController::class)->group(function () {
+Route::prefix('client')->middleware('checkLang')->group(function () {
     Route::post('login', [ClientController::class,'login']);
     Route::post('register', [ClientController::class,'register']);
     Route::post('logout',[ClientController::class, 'logout']);
@@ -35,4 +37,8 @@ Route::prefix('client')->controller(ClientController::class)->group(function () 
     Route::post('password/email',  [ClientController::class,'forget']);
     Route::post('password/code/check', [ClientController::class,'code']);
     Route::post('mail/check', [ClientController::class,'mail']);
+    ///////////////nationality////////////
+    Route::get('nationality', [MainClientController::class,'nationality']);
+Route::post('make/account', [AccountController::class,'make_account']);
+    Route::post('has/account', [AccountController::class,'has_account']);
 });
