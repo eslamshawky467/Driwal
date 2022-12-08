@@ -30,10 +30,12 @@ class ClientController extends Controller
         ]
 
         );
-
-        if($validator->fails()){
-            return apiResponse("error",$validator->errors(),422);
+        if ($validator->fails()) {
+            return response()->json(['message'=>$validator->errors()->first(),'status'=> 422]);
         }
+        /////////  if ($validator->fails()) {
+            // return response()->json(['message'=>$validator->errors()->first(),'status'=> 422]);
+        // }
 
         $user = Client::create(array_merge(
             $validator->validated(),
@@ -63,10 +65,9 @@ class ClientController extends Controller
         // if ($validator->fails()) {
         //     return response()->json($validator->errors(), 422);
         // }
-
-        if($validator->fails()){
-            return apiResponse("error",$validator->errors(),422);
-         }
+        if ($validator->fails()) {
+            return response()->json(['message'=>$validator->errors()->first(),'status'=> 422]);
+        }
 
         if (!$token = auth()->guard('client')->attempt($validator->validated())) {
             return response()->json(['error' => 'Unauthorized'], 401);
@@ -154,7 +155,7 @@ class ClientController extends Controller
             ]);
             return response()->json([
                 'message'=>'Password successfully updated',
-            ],200);
+            ],201);
         }else{
             return response()->json([
                 'message'=>'Old password does not matched',
@@ -207,8 +208,5 @@ class ClientController extends Controller
 
         return response(['message' => trans('passwords.sent')], 201);
     }
-
-
-
 
 }

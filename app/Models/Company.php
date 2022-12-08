@@ -2,17 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Driver;
+use Kyslik\ColumnSortable\Sortable;
+use Illuminate\Database\Eloquent\Model;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 
 class Company extends Authenticatable  implements JWTSubject
 {
     use HasFactory;
-
+    use Sortable;
 
     public function getJWTIdentifier() {
         return $this->getKey();
@@ -25,8 +26,12 @@ class Company extends Authenticatable  implements JWTSubject
     public function getJWTCustomClaims() {
         return [];
     }
+    public function file(){
 
-    protected $fillable =['name','email','password','nationality_id','phonenumber','id','status','id_number'];
+        return $this->morphMany(File::class,'Fileable');
+    }
+
+    protected $fillable =['name','email','password','phonenumber','id','status'];
 
 }
 

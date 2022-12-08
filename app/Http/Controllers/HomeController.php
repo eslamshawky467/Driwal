@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function index($type='admin')
+    public function index($type = 'admin')
     {
         return view('auth.login',compact('type'));
     }
@@ -21,6 +17,7 @@ class HomeController extends Controller
     }
     public function dashboard()
     {
+        // $admins = User::sortable()->paginate(5);
         return view('layouts.admin.app');
     }
 }
