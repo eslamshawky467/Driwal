@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Auth\ClientController;
 use App\Http\Controllers\Api\Auth\CompanyAuthController;
+use App\Http\Controllers\Api\Company\PackageController;
+use App\Http\Controllers\Api\Company\RequestController;
 
 
 /*
@@ -34,4 +36,22 @@ Route::prefix('company')->controller(CompanyAuthController::class)->group(functi
 
     Route::post('password/email',  [CompanyAuthController::class,'forget']);
     Route::post('password/code/check', [CompanyAuthController::class,'code']);
+
+        ///////////////////packages////////////
+        ///////////////////packages////////////
+    Route::get('packages', [PackageController::class,'allPackages']);
+    Route::get('package/company', [PackageController::class,'packageCompany']);
+//        Route::get('package/company', [PackageController::class,'packageCompany']);
+        Route::get('banner',[PackageController::class,'allBanners']);
+        Route::get('advertisement',[PackageController::class,'alladvertisements']);
+        //////////////////////////////////////
+
+
+        /////////////////request////////////////
+        Route::post('create/request', [RequestController::class,'createRequest']);
+        // Route::get('create/request', [RequestController::class,'createRequest']);
+        Route::post('ckeckStatus/request', [RequestController::class,'ckeckStatus']);
+        Route::get('company/locations', [RequestController::class,'companyLocations']);
+
+     // Route::post('has/account', [RequestController::class,'has_account']);
 });

@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Setting\SettingController;
+use App\Http\Controllers\Api\Zone\ZonesController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,4 +21,16 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['middleware'=>'checkLang'],function(){
+    Route::group(['prefix'=>'settings'],function(){
+        Route::get('/about-us',[SettingController::class,'about_us']);
+        Route::get('/contact-us',[SettingController::class,'contact_us']);
+        Route::get('/faq',[SettingController::class,'faq']);
+    });
+});
+Route::get('/zones',[ZonesController::class,'zones']);
+
+
+
 

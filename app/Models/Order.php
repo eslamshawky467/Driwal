@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use App\Models\Client;
+use App\Models\Request;
+
+class Order extends Model
+{
+    use HasFactory;
+    protected $guarded=[];
+    public function client(){
+        return $this->belongsTo(Client::class,'client_id');
+    }
+
+    public function requests(){
+        return $this->belongsTo(Request::class,'request_id');
+    }
+}
